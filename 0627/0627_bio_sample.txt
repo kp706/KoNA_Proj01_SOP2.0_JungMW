@@ -1,0 +1,30 @@
+{
+	"bio_sample":{
+		"submitter":{
+			"name":	[{"name_kor":"None"}, {"name_eng":"None"}],
+			"email":[{"email_1":"None"}, {"email_2":"None"}],
+			"organization":[{"organization":"None"}, {"organization":"None"}],
+			"department":[{"department_kor":"None"},{"department_eng":"None"}],
+			"phone":"None",
+			"fax":"None",
+			"address":[{"address_kor":"None"},{"address_eng":"None"}],
+			"country":"None"	
+		}, // Submitter
+		
+		"hierarchy": {
+			"project_accession":"None"
+		}, // hier
+
+		"date":{
+			"submission_date":"None",
+			"release_date_selection":"None",
+			"release_date":"None"
+		}, //Date
+
+		"sample_design" : {
+			"sample_title":[{"sample_title_kor":"None"},{"sample_title_eng":"None"}],
+			"description":[{"description_kor":"None"},{"description_eng":"None"}],
+			"sample_type":"None"
+		}
+	}
+}

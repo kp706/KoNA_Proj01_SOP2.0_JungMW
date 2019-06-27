@@ -1,0 +1,65 @@
+{
+	"bio_project":
+		{
+	
+		"submitter":{
+			"name":	[{"name_kor":"None"}, {"name_eng":"None"}],
+			"email":[{"email_1":"None"}, {"email_2":"None"}],
+			"organization":[{"organization":"None"}, {"organization":"None"}],
+			"department":[{"department_kor":"None"},{"department_eng":"None"}],
+			"phone":"None",
+			"fax":"None",
+			"address":[{"address_kor":"None"},{"address_eng":"None"}],
+			"country":"None"	
+		}, // Submitter
+	
+	
+		"date":{
+			"submission_date":"None",
+			"release_date_selection":"None",
+			"release_date":"None"
+		}, //Date
+
+		"project_design : {
+			"government_department":"None",
+			"project_title":[{"project_title_kor":"None"},{"project_title_eng":"None"}],		
+			"project_number":"None",
+			"project_NTIS_number":"None",
+			"project_type":"None",
+			"main_project_title":"None",
+			"main_project_pi":"None",
+			"main_project_number":"None",
+			"relevance":"None",
+			"description":[{"description_kor":"None"},{"description_eng":"None"}],
+			"project_data_type":"None",
+			"sample_scope":"None"
+		}, // pro_des
+
+		"hierarchy": {
+			"umbrella_project":"None"
+		}, // hier
+	
+		"consortium": {
+			"consortium_name":"None",
+			"consortium_url":"None"
+		},// consor
+
+		"others" : {
+			"data_provider":"None"
+		}, // other
+
+		"publications" : {
+			"pubmed_id"="None",
+			"DOI":"None",
+			"journal_name":"None",
+			"article_title":"None",
+			"year":"None",
+			"author_list":"None"
+		},
+
+		"external_links" : {
+			"link_description":"None",
+			"url":"None"
+		}
+	}
+}
