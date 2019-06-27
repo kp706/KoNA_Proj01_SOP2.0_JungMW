@@ -1,0 +1,145 @@
+{
+	"bio_project":
+		{
+	
+		"submitter":{
+			"name":	[{"name_kor":"None"}, {"name_eng":"None"}],
+			"email":[{"email_1":"None"}, {"email_2":"None"}],
+			"organization":[{"organization":"None"}, {"organization":"None"}],
+			"department":[{"department_kor":"None"},{"department_eng":"None"}],
+			"phone":"None",
+			"fax":"None",
+			"address":[{"address_kor":"None"},{"address_eng":"None"}],
+			"country":"None"	
+			}, // Submitter
+	
+	
+		"date":{
+			"submission_date":"None",
+			"release_date_selection":"None",
+			"release_date":"None"
+			}, //Date
+
+		"project_design : {
+			"government_department":"None",
+			"project_title":[{"project_title_kor":"None"},{"project_title_eng":"None"}],		
+			"project_number":"None",
+			"project_NTIS_number":"None",
+			"project_type":"None",
+			"main_project_title":"None",
+			"main_project_pi":"None",
+			"main_project_number":"None",
+			"relevance":"None",
+			"description":[{"description_kor":"None"},{"description_eng":"None"}],
+			"project_data_type":"None",
+			"sample_scope":"None"
+			}, // pro_des
+
+		"hierarchy": {
+			"umbrella_project":"None"
+			}, // hier
+	
+		"consortium": {
+			"consortium_name":"None",
+			"consortium_url":"None"
+			},// consor
+
+		"others" : {
+			"data_provider":"None"
+			}, // other
+
+		"publications" : {
+			"pubmed_id"="None",
+			"DOI":"None",
+			"journal_name":"None",
+			"article_title":"None",
+			"year":"None",
+			"author_list":"None"
+			}
+
+		"external_links" : {
+			"link_description":"None",
+			"url":"None"
+			}
+		},
+
+		{
+		"bio_sample":{
+
+			"submitter":{
+				"name":	[{"name_kor":"None"}, {"name_eng":"None"}],
+				"email":[{"email_1":"None"}, {"email_2":"None"}],
+				"organization":[{"organization":"None"}, {"organization":"None"}],
+				"department":[{"department_kor":"None"},{"department_eng":"None"}],
+				"phone":"None",
+				"fax":"None",
+				"address":[{"address_kor":"None"},{"address_eng":"None"}],
+				"country":"None"	
+				}, // Submitter
+		
+			"hierarchy": {
+				"project_accession":"None"
+				}, // hier
+
+			"date":{
+				"submission_date":"None",
+				"release_date_selection":"None",
+				"release_date":"None"
+				}, //Date
+
+			"sample_design" : {
+				"sample_title":[{"sample_title_kor":"None"},{"sample_title_eng":"None"}],
+				"description":[{"description_kor":"None"},{"description_eng":"None"}],
+				"sample_type":"None"
+				}
+		
+			"experiment":{ // 행으로 구성 //date title 한, 영 순서 변경 
+				"sample_name":"None",
+				
+				"date": {
+					"submission_data":"None",
+					"release_date_selection":"None",
+					"release_date":"None"
+					},
+
+				"experiment_design": {
+					"experiment_title_kor":"None",
+					"experiment_title_eng":"None",
+					"library_name":"None",
+					"platform":"None",
+					"instrument_model":"None",
+					"library_construction_experiment_design":"None",
+					"library":"None",
+					"strategy":"None",
+					"source":"None",
+					"selection":"None",
+					"general_description":[{"general_description_kor":"None"},{"general_description_eng":"None"}]
+					},
+
+				"layout":{
+					"fragment_paired_read":"None",
+					"insert_size":"None",
+					"nominal_size":"None",
+					"nominal_standard_deviation":"None"
+					},
+
+				"technical_replicate":"None",
+				
+				"file_type": { //fastq format
+					fastQ_format : {
+							"file_name_read1":"None",
+							"md5_for_file_read1":"None",
+							"file_name_read2":"None",
+							"md5_for_file_read2:"None",
+							"etc":"None",
+							"file_path_directory":"None"	
+						}
+					}
+				
+			} // experiment
+	
+		}//bio_sample
+	
+	}, // bio_project
+
+} //최상위	
