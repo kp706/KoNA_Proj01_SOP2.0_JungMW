@@ -5,7 +5,7 @@
 		"submitter":{
 			"name":	[{"name_kor":"None"}, {"name_eng":"None"}],
 			"email":[{"email_1":"None"}, {"email_2":"None"}],
-			"organization":[{"organization":"None"}, {"organization":"None"}],
+			"organization":[{"organization_kor":"None"}, {"organization_eng":"None"}],
 			"department":[{"department_kor":"None"},{"department_eng":"None"}],
 			"phone":"None",
 			"fax":"None",
@@ -48,18 +48,18 @@
 			"data_provider":"None"
 		}, // other
 
-		"publications" : {
+		"publications" : [ {
 			"pubmed_id"="None",
 			"DOI":"None",
 			"journal_name":"None",
 			"article_title":"None",
 			"year":"None",
 			"author_list":"None"
-		},
+		} ],
 
-		"external_links" : {
+		"external_links" : [ {
 			"link_description":"None",
 			"url":"None"
-		}
-	}
-}
+		} ]
+	} //end bioproject value
+} //end bioproject
