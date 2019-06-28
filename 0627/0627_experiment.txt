@@ -33,7 +33,7 @@
 		"technical_replicate":"None",
 				
 		"file_type": { //fastq format
-			fastQ_format : {
+			fastq_format : {
 				"file_name_read1":"None",
 				"md5_for_file_read1":"None",
 				"file_name_read2":"None",
