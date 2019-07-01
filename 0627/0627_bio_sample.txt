@@ -1,19 +1,28 @@
 {
 	"bio_sample":{
 		"submitter":{
-			"name":	[{"name_kor":"None"}, {"name_eng":"None"}],
-			"email":[{"email_1":"None"}, {"email_2":"None"}],
-			"organization":[{"organization":"None"}, {"organization":"None"}],
-			"department":[{"department_kor":"None"},{"department_eng":"None"}],
+			"name":{
+				"name_kor":["None"],
+				"name_eng":["None"]}
+				},
+			"email":["None", "None"],
+			"organization":{
+				"organization_kor":["None"],
+				"organization_eng":["None"]},
+			"department":{
+				"department_kor":["None"],
+				"department_eng":["None"]},
 			"phone":"None",
 			"fax":"None",
-			"address":[{"address_kor":"None"},{"address_eng":"None"}],
-			"country":"None"	
+			"address":{
+				"address_kor":["None"],
+				"address_eng":["None"]},
+			"country":["None"]	
 		}, // Submitter
 		
 		"hierarchy": {
 			"project_accession":"None"
-		}, // hier
+		}, // Hierarchy
 
 		"date":{
 			"submission_date":"None",
@@ -22,10 +31,14 @@
 		}, //Date
 
 		"sample_design" : {
-			"sample_title":[{"sample_title_kor":"None"},{"sample_title_eng":"None"}],
-			"description":[{"description_kor":"None"},{"description_eng":"None"}],
+			"sample_title":{
+				"sample_title_kor":"None",
+				"sample_title_eng":"None"},
+			"description":{
+				"description_kor":"None",
+				"description_eng":"None"},
 			"sample_type": [{"sample_type_1": {
-						"name/designation":{
+						"name_designation":{
 								"sample name" :"None",
 								"organism":"None",
 								"strain":"None",
@@ -67,10 +80,10 @@
 								"serovar":"None"
 								}
 						}
-					}, //sample_type1 end
+					}, //sample_type_1 end
 
 				       {"sample_type_2": {
-						"name/designation":{
+						"name_designation":{
 								"sample name" :"None",
 								"organism":"None",
 								"strain":"None",
@@ -102,9 +115,9 @@
 								"serovar":"None"
 								}
 						}
-					}, //sample_type2 end
+					}, //sample_type_2 end
 				       {"sample_type_3": {
-						"name/designation":{
+						"name_designation":{
 								"sample name" :"None",
 								"organism":"None",
 								"strain":"None",
@@ -139,9 +152,9 @@
 								"serovar":"None"
 								}
 						}
-					}, //samp3 end
+					}, //sample_type_3 end
 				       {"sample_type_4":{
-						"name/designation":{
+						"name_designation":{
 								"sample_name":"None",
 								"organism":"None",
 								"strain":"None",
@@ -183,9 +196,9 @@
 								"phenotype":"None"
 								}
 						}
-					}, //sampletype4 end
+					}, //sample_type_4 end
 				       {"sample_type_5": {
-						"name/designation":{
+						"name_designation":{
 								"sample_name":"None",
 								"organism":"None",
 								"type":"None",
@@ -217,9 +230,9 @@
 								"race":"None",
 								"ethnicity":"None"
 								}
-					}, //sampletype5 end
+					}, //sample_type_5 end
 				       {"sample_type_6":{
-						"name/designation":{
+						"name_designation":{
 								"sample_name":"None",
 								"organism":"None",
 								"cultivar":None",
@@ -255,9 +268,9 @@
 								"population":"None"
 								}			
 						}
-					}, //sampletype6 end
+					}, //sample_type_6 end
 				       {"sample_type_7":{
-						"name/designation":{
+						"name_designation":{
 								"sample_name":"None",
 								"organism":"None",
 								"strain":None",
