@@ -1,0 +1,46 @@
+{
+	"experiment":
+		{ // 행으로 구성 //date title 한, 영 순서 변경 
+		"sample_name":"None",
+				
+		"date": {
+			"submission_data":"None",
+			"release_date_selection":"None",
+			"release_date":"None"
+		},
+
+		"experiment_design": {
+			"experiment_title_kor":"None",
+			"experiment_title_eng":"None",
+			"library_name":"None",
+			"platform":"None",
+			"instrument_model":"None",
+			"library_construction_experiment_design":"None",
+			"library":"None",
+			"strategy":"None",
+			"source":"None",
+			"selection":"None",
+			"general_description":[{"general_description_kor":"None"},{"general_description_eng":"None"}]
+		},
+
+		"layout":{
+			"fragment_paired_read":"None",
+			"insert_size":"None",
+			"nominal_size":"None",
+			"nominal_standard_deviation":"None"
+		},
+
+		"technical_replicate":"None",
+				
+		"file_type": { //fastq format
+			fastq_format : {
+				"file_name_read1":"None",
+				"md5_for_file_read1":"None",
+				"file_name_read2":"None",
+				"md5_for_file_read2:"None",
+				"etc":"None",
+				"file_path_directory":"None"	
+			}
+		}
+			
+} // experiment
