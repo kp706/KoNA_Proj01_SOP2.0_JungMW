@@ -14,8 +14,7 @@ validation 여부, Read개수, Base 개수
 '''
 
 
-
-def search(dirname):
+def search(dirname, outputfile_s):
     '''
     디렉토리를 받아서,내부 목록들을 스캔하고, fastq.gz파일인경우에는 validation함수를
     호출해서 작업을 시작하고, 또 다른 폴더인경우에는 재귀호출을 해주면서 모든 파일을 순회한다.
@@ -32,11 +31,11 @@ def search(dirname):
 
         #    isgz = os.path.split(full_filename)[-1] #gz압축파일인경우
             if (ext == 'fastq' or ext == 'fq'):
-                validation(full_filename)  # 확장자명,gz파일까지 일치하면 validation 호출
+                # 확장자명,gz파일까지 일치하면 validation 호출
+                validation(full_filename, outputfile_s)
 
 
-
-def validation(filepath):  # 유효성 확인 함수
+def validation(filepath, outputfile_v):  # 유효성 확인 함수
     '''
     validation 함수의 inputValue는 fastq.gz 또는 fq.gz이다. 압축은 풀지않고 모듈을 이용해서
     파일을 Read한다. 파일의 내부는 건들필요도없고 건들이면 안되기때문에 'rt'라는 인자를주어 읽기전용으로 open한다.
@@ -61,21 +60,20 @@ def validation(filepath):  # 유효성 확인 함수
             if line.strip() == "+":
                 break
         headerCount -= 3  # 헤더를 계산한다.
-        temptarget.close() #용도를 다했으니 파일 닫는다.
+        temptarget.close()  # 용도를 다했으니 파일 닫는다.
 
         k = 0
-        while(k < headerCount): #헤더를 다 읽어서 버린다.
+        while(k < headerCount):  # 헤더를 다 읽어서 버린다.
             line = target.getline()
             print(line)
-            k +=1
-
+            k += 1
 
         for line in target:  # 파일을 한줄한줄 순서대로 읽으며 반복문을 돈다.
-                numberOfLine += 1  # 라인수 증가지시고
-                if numberOfLine % 4 == 2:  # 한 Read 내에서 두번째줄인경우
-                    length = len(line.strip())  # strip함수로 마지막 개행문자 제거한뒤 길이계산
-                    numberOfRead += 1  # 4줄중에서 한번진입하므로, Read수 1 증가
-                    numberOfBase += length  # Base수는 sequence 길이만큼 증가
+            numberOfLine += 1  # 라인수 증가지시고
+            if numberOfLine % 4 == 2:  # 한 Read 내에서 두번째줄인경우
+                length = len(line.strip())  # strip함수로 마지막 개행문자 제거한뒤 길이계산
+                numberOfRead += 1  # 4줄중에서 한번진입하므로, Read수 1 증가
+                numberOfBase += length  # Base수는 sequence 길이만큼 증가
 
         print("File Name : " + str(filepath))  # 프로세싱한 전체파일경로 출력
 
@@ -94,17 +92,32 @@ def validation(filepath):  # 유효성 확인 함수
         print()  # 결과값 출력해주고 개행
         target.close()  # 파일 닫는다.
 
+
+        '''
+        결과값들을 순서대로 outputfile에 적어준다.
+        '''
+        outputfile_v.write(str(filepath) + "\t") #파일명 적고 tab
+        outputfile_v.write((str(filepath)).rsplit('\\',1)[1] + "\t") #파일이름 파싱해서 적고 tab
+        if flag:
+            outputfile_v.write("VALID" + "\t") #유효여부 적고 tab
+        else:
+            outputfile_v.write("NOT VALID" + "\t")
+        outputfile_v.write(str(numberOfRead) + "\t") # Read개수 적고 tab
+        outputfile_v.write(str(numberOfBase) + "\n")  # 마지막데이터쓰고 개행
+
     except IOError as err:
         print("Input file Error: " + str(err))
 
 
-
-
 print()  # 개행
-
 '''
 main에 해당하는 부분으로, 경로를 받아와서 절대경로로 변환한 뒤 search 함수에 넣어준다.
 '''
 p = str(sys.argv[1])  # 첫번째 인자값에서 경로 받아와서
 p = os.path.abspath(p)  # 절대경로로 만들어주고
-search(p)  # 함수 호출
+outputfile = open("validation_result.txt", 'w')  # output Text파일 생성
+outputfile.write("filePath" + "\t" + "fileName" + "\t" + "isValidation" + "\t" +
+                 "numberOfRead" + "\t" + "numberOfBase" + "\n")
+# 목차 적어준다.
+search(p, outputfile)  # 함수 호출
+outputfile.close() #output Text파일 닫고 저장
