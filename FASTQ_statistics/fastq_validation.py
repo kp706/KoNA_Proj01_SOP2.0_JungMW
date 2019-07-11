@@ -65,7 +65,6 @@ def validation(filepath, outputfile_v):  # 유효성 확인 함수
         k = 0
         while(k < headerCount):  # 헤더를 다 읽어서 버린다.
             line = target.getline()
-            print(line)
             k += 1
 
         for line in target:  # 파일을 한줄한줄 순서대로 읽으며 반복문을 돈다.
