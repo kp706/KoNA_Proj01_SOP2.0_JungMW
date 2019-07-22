@@ -5,10 +5,10 @@ import sys
 import os
 import collections
 
-excelPath = str(sys.argv[1])
-txtPath = str(sys.argv[2])
-excelPath = os.path.abspath(excelPath)
-txtPath = os.path.abspath(txtPath)
+#excelPath = str(sys.argv[1])
+txtPath="D:\minwoo\Working_Directory/1711072542_2018M3C9A6017315.txt"
+excelPath = "D:\minwoo\Working_Directory/03_박동현_진행성 대장암 예후 예측 바이오마커 발굴 및 임상유용성 검증_20190720_박지환 수정.xlsx"
+
 '''
 첫번째인자값 : excel파일 경로, 두번째인자값 : text파일 경로
 '''
@@ -48,8 +48,8 @@ try:
     targetExcel = load_workbook(excelPath,data_only=True) # 엑셀 연다.
 
     workingSheet1 = targetExcel["3) Experiment_Human (1)"]
-    workingSheet2 = targetExcel["3) Experiment_Human(2)"]
-
+    workingSheet2 = targetExcel["3) Experiment_Human (2)"]
+    workingSheet3 = targetExcel["3) Experiment_Human (3)"]
 
     '''
     파일목록 4개 가져와서 모두 하나의 배열에 저장
@@ -58,31 +58,15 @@ try:
     getEveryColumnValues(workingSheet1,xmlFileList,xmlFilePathDic,'X')
     getEveryColumnValues(workingSheet2,xmlFileList,xmlFilePathDic,'V')
     getEveryColumnValues(workingSheet2,xmlFileList,xmlFilePathDic,'X')
-
+    getEveryColumnValues(workingSheet3,xmlFileList,xmlFilePathDic,'V')
+    getEveryColumnValues(workingSheet3,xmlFileList,xmlFilePathDic,'X')
 except IOError as err:
     print("IO Error : " + str(err))
 
 
 
 try:
-    targetTxt = open('D:\minwoo\Working_Directory/1711081802_2018M3C9A6065070.txt','rt',encoding='UTF8')
-    lines = targetTxt.readlines()
-    '''
-    txt파일 가져와서 파일목록 배열에 저장
-    '''
-    for line in lines:
-        (trash, value) = line.rsplit('/',1)
-        temp = value.rstrip('\n')
-        txtFileList.append(temp)
-        txtFilePathDic[str(temp)] = '/home/qu/KOBIC/2019'+ str(line).split('.',1)[1]
-        #txt 경로 셋 저장
-except IOError as err:
-    print("Txt File Error: " + str(err))
-
-
-
-try:
-    targetTxt = open('D:\minwoo\Working_Directory/1711075974_2018M3C9A6065070.txt','rt',encoding='UTF8')
+    targetTxt = open(txtPath,'rt',encoding='UTF8')
     lines = targetTxt.readlines()
     '''
     txt파일 가져와서 파일목록 배열에 저장
@@ -128,8 +112,8 @@ for x in txtFileList:
         commonPath.append(txtFilePathDic[x].rstrip('\n'))
 
 
-
-
+print(str(object=len(xmlFileList)))
+print(str(object=len(txtFileList)))
 
 
 
@@ -166,6 +150,3 @@ while r < rotation:
     r += 1
 
 outputfile.close()
-
-
-        #둘다있으면 Common에 저장
