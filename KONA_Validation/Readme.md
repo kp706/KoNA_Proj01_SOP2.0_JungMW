@@ -17,4 +17,8 @@ KONA_Validation
 * Release date이 현재로부터 1년 이내인지 검사
 * project accession 항목 기입 검사 <br>
 
+## Experiment Validation
+* Sample name 항목이 BioSample에 기입된 sample name 항목과 동일한지 검사
+* Release date이 현재로부터 1년 이내인지 검사
+* 'Fragment/Paired read' 필드가 Pairde-end인 경우, "insert size" 혹은 "Nominal size"필드 중 적어도 하나 이상의 필드에 값이 기입되었는지 검사<br>
 
