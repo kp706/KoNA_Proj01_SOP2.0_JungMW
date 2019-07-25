@@ -9,9 +9,9 @@ import numpy as np
 sys.stdout = io.TextIOWrapper(sys.stdout.detach(), encoding = 'utf-8')
 sys.stderr = io.TextIOWrapper(sys.stderr.detach(), encoding = 'utf-8')
 
-#excelPath = str(sys.argv[1])
-#excelPath = os.path.abspath(excelPath)
-excelPath = 'D:/minwoo/Working_Directory/03_이대엽_크로마틴 구조기반 간암 유방암 예후예측 3D-nucleome 바이오마커 발굴_20190710.xlsx'
+excelPath = str(sys.argv[1])
+excelPath = os.path.abspath(excelPath)
+#excelPath = 'D:/minwoo/Working_Directory/03_이대엽_크로마틴 구조기반 간암 유방암 예후예측 3D-nucleome 바이오마커 발굴_20190710.xlsx'
 '''
 input value = excel File
 '''
