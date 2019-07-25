@@ -1,6 +1,8 @@
 KONA_Validation
 ===============
-
+사용방법 : Shell창 입력: python kona_Validation.py "excel파일경로" 
+----------------------------------------------------------------
+<br>
 ## BioProject Validation
 * 제출된 과제명이 총괄이 아닌지 검사
 * 날짜 입력 양식 검사 (YYYY-MM-DD)
