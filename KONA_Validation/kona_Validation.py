@@ -196,8 +196,6 @@ def sampleType_Validation(targetSheet):
             #여기까지하면 배열에 이름들 저장
     nameSet = list(set(bioSample_SampleName))
 
-    #nameSet = nameset.sort()
-    #bioSample_SampleName= bioSample_SampleName.sort()
     nameSet.sort()
     bioSample_SampleName.sort()
 
@@ -244,10 +242,20 @@ def Experiment_Validation(targetSheet):
         else:
             experiment_SampleName.append(str(temp))
             i += 1
+            #Experiment에 있는 sample name 배열에 저장
 
-    # Compare sample_name of experiment with sample_name of bio_sample
-    if not np.array_equal(experiment_SampleName,bioSample_SampleName):
-        print("[ERROR] [EXPERIMENT] Sample name 항목이 BioSample에 기입된 Sample name 항목과 동일하지 않습니다.")
+    nameSet = list(set(experiment_SampleName))
+    compareNameSet = list(set(bioSample_SampleName))
+
+    if len(experiment_SampleName) != len(nameSet):
+        print('[ERROR] [EXPERIMENT] "sample name에 이름이 중복되는 데이터가 있습니다."')
+        flag += 1
+
+    if len(set(nameSet)-set(compareNameSet))!=0:
+        print('[ERROR] [EXPERIMENT] "sample name에 있는 항목중에 BioSample에 없는 값이 있습니다."')
+        flag +=1
+
+
 
 
     #Release date Check
@@ -260,7 +268,9 @@ def Experiment_Validation(targetSheet):
             else:
                 if not (checkingReleaseDate(temp)):
                     print("[ERROR] [EXPERIMENT] Release Date가 현재로부터 1년 이후로 설정되어있습니다.(" + str(i) + " row)")
+                    flag += 1
                 i += 1
+
 
 
     #Size value check
@@ -273,9 +283,35 @@ def Experiment_Validation(targetSheet):
 
             if (str(targetSheet[str('R')+str(i)].value)=='None' or str(targetSheet[str('R')+str(i)].value)=='NA') and (str(targetSheet[str('S')+str(i)].value)=='None' or str(targetSheet[str('S')+str(i)].value)=='NA'):
                 print("[ERROR] [EXPERIMENT] Paired-end인 경우 Insert size 또는 Normal size중 하나는 값을 입력해야합니다.("+str(object=i)+" row)")
-            i += 1
+                i += 1
+                flag += 1
         else:
             i += 1
+
+
+
+    i = 5
+    column = ['E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U']
+    duplicationCheckArr = []
+    while True:
+        if targetSheet['A'+str(i)].value == None:
+            break
+        temp = ""
+        for col in column:
+            temp += str(targetSheet[str(col)+str(i)].value).strip()
+        duplicationCheckArr.append(temp)
+        i += 1
+        #빠져나오면 uplicationCheckArr에 원소들 저장
+    duplicationCheckSet = list(set(duplicationCheckArr))
+
+    if not len(duplicationCheckArr)==len(duplicationCheckSet):
+        print('[ERROR] [EXPERIMENT] E~U 열이 모두 중복되는 데이터가 있습니다.')
+        flag += 1
+
+    if flag == 0:
+        print('<<< EXPERIMENT : NO PROBLEM >>>')
+    else:
+        print("<<< experiment : " + str(flag) + " ERROR >>>")
 
 
 
