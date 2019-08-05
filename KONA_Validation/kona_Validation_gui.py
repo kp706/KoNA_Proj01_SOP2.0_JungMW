@@ -6,19 +6,23 @@ import os
 from datetime import datetime
 import io
 import numpy as np
-from PyQt5.QtWidgets import (QApplication,QFileDialog, QComboBox, QVBoxLayout,QWidget,  QPlainTextEdit,QPushButton, QDesktopWidget,QGridLayout, QLabel, QLineEdit,QRadioButton)
-from PyQt5.QtGui import QIcon, QFont
+from PyQt5.QtWidgets import (QApplication,QFileDialog, QTextEdit, QComboBox, QVBoxLayout,QWidget,  QPlainTextEdit,QPushButton, QDesktopWidget,QGridLayout, QLabel, QLineEdit,QRadioButton)
+from PyQt5.QtGui import QIcon,QColor
 from PyQt5.QtCore import QCoreApplication
 sys.stdout = io.TextIOWrapper(sys.stdout.detach(), encoding = 'utf-8')
 sys.stderr = io.TextIOWrapper(sys.stderr.detach(), encoding = 'utf-8')
 
 
 #excelPath = 'D:/minwoo/Working_Directory/03_이대엽_크로마틴 구조기반 간암 유방암 예후예측 3D-nucleome 바이오마커 발굴_20190710.xlsx'
+redColor = QColor(255,0,0)
+blueColor = QColor(0,0,255)
+blackColor = QColor(0,0,0)
+
+
 excelPath = ""
 '''
 input value = excel File
 '''
-
 class KonaValidation(QWidget):
 
     def __init__(self):
@@ -44,7 +48,7 @@ class KonaValidation(QWidget):
         excelPathInput = QLineEdit(self)
         excelFileSearch = QPushButton("엑셀 파일 찾기",self)
         validation = QPushButton('Validation Start',self)
-        errorBox = QPlainTextEdit(self)
+        errorBox = QTextEdit(self)
 
         grid = QGridLayout()
         self.setLayout(grid)
@@ -137,11 +141,12 @@ class KonaValidation(QWidget):
         '''
         flag = 0
 
-
+        errbox.setTextColor(blackColor)
         if self.notMatchedFieldName(targetSheet,'A17','Submission date'):
             '''
             A17이 Submission date이 아니라면 에러 메시지를 출력한다.
             '''
+
             errbox.insertPlainText('[ERROR] ['+str(sheetName)+'] "Submission date 필드의 위치가 템플릿 양식과 일치하지 않습니다." (17 row)\n')
             flag += 1
         else:
@@ -200,8 +205,10 @@ class KonaValidation(QWidget):
                 flag += 1
 
         if(flag==0):
-            errbox.insertPlainText("<<< " + str(sheetName) + " : NO PROBLEM >>>\n")
+            errbox.setTextColor(blueColor)
+            errbox.insertPlainText("<<< " + str(sheetName) + " : NO ERROR >>>\n")
         else:
+            errbox.setTextColor(redColor)
             errbox.insertPlainText("<<< " + str(sheetName) + " : " + str(flag) + " ERROR >>>\n")
 
 
@@ -210,7 +217,7 @@ class KonaValidation(QWidget):
 
     def bioSample_Validation(self,targetSheet,compareSheet,sheetName,errbox):
         flag = 0
-
+        errbox.setTextColor(blackColor)
         #Submission date check
         if self.notMatchedFieldName(targetSheet,'A19','Submission date'):
             errbox.insertPlainText('[ERROR] ['+str(sheetName)+'] "Submission date 필드의 위치가 템플릿 양식과 일치하지 않습니다." (19 row)\n')
@@ -261,8 +268,10 @@ class KonaValidation(QWidget):
                 flag += 1
 
         if flag==0:
-            errbox.insertPlainText("<<< " + str(sheetName)+ " : NO PROBLEM >>>\n")
+            errbox.setTextColor(blueColor)
+            errbox.insertPlainText("<<< " + str(sheetName)+ " : NO ERROR >>>\n")
         else:
+            errbox.setTextColor(redColor)
             errbox.insertPlainText("<<< " + str(sheetName)+ " : " + str(flag) + " ERROR >>>\n")
 
 
@@ -271,7 +280,7 @@ class KonaValidation(QWidget):
 
         flag = 0
         i = 5
-
+        errbox.setTextColor(blackColor)
         '''
         bioSample_SampleName 이라는 배열에 Sample Name을 다 넣고 중복이 있는지 본다.
         '''
@@ -312,8 +321,10 @@ class KonaValidation(QWidget):
 
 
         if flag==0:
-            errbox.insertPlainText("<<< "+str(sheetName)+ " : NO PROBLEM >>>\n")
+            errbox.setTextColor(blueColor)
+            errbox.insertPlainText("<<< "+str(sheetName)+ " : NO ERROR >>>\n")
         else:
+            errbox.setTextColor(redColor)
             errbox.insertPlainText("<<< "+str(sheetName) +" : " + str(flag) + " ERROR >>>\n")
 
 
@@ -321,7 +332,7 @@ class KonaValidation(QWidget):
 
     def Experiment_Validation(self,targetSheet,sheetName,errbox):
         flag= 0
-
+        errbox.setTextColor(blackColor)
         i = 5
         #Save Sample names
         while True:
@@ -395,14 +406,13 @@ class KonaValidation(QWidget):
         if not len(duplicationCheckArr)==len(duplicationCheckSet):
             errbox.insertPlainText('[ERROR] ['+str(sheetName)+'] E~U 열이 모두 중복되는 데이터가 있습니다.\n')
             flag += 1
-
+            
         if flag == 0:
-            errbox.insertPlainText('<<< ' +str(sheetName) + ' : NO PROBLEM >>>\n')
+            errbox.setTextColor(blueColor)
+            errbox.insertPlainText('<<< ' +str(sheetName) + ' : NO ERROR >>>\n')
         else:
+            errbox.setTextColor(redColor)
             errbox.insertPlainText("<<< " + str(sheetName) + " : " + str(flag) + " ERROR >>>\n")
-
-    def testrun(self,excel,errbox):
-        errbox.insertPlainText(str(excel)+'\n')
 
 
 
