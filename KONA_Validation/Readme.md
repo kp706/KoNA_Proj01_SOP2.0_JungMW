@@ -4,6 +4,8 @@ KONA_Validation
 ----------------------------------------------------------------
 <br>
 
+![캡처](https://user-images.githubusercontent.com/46260961/62503784-aa808080-b830-11e9-87f6-75ff714d338d.PNG)
+
 ## BioProject Validation
 * 제출된 과제명이 총괄이 아닌지 검사
 * 날짜 입력 양식 검사 (YYYY-MM-DD)
