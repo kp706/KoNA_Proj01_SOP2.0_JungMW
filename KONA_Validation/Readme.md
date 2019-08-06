@@ -3,10 +3,10 @@ KONA_Validation
 사용방법 : Main.py를 실행시키고, 아래 원하는 SOP 엑셀 파일을 선택한 뒤 Validation 클릭" 
 ----------------------------------------------------------------
 <br>
-<h3>실행되면, 시트의 이름을 검사하고, BioProject, BioSample, Sample type, Experiment를 가지고 있는 시트를 찾아내서 항목별로 알맞는 Validation을 실행한다.</h3><br>
+<h3>실행되면, 시트의 이름을 검사하고, BioProject, BioSample, Sample type, Experiment를 가지고 있는 시트를 찾아내서 항목별로 알맞는 Validation을 실행한다.</h3>
 
 ![캡처](https://user-images.githubusercontent.com/46260961/62503784-aa808080-b830-11e9-87f6-75ff714d338d.PNG)
-
+![캡처1](https://user-images.githubusercontent.com/46260961/62504418-5f1ba180-b833-11e9-8747-e9d81a86292e.PNG)
 ## BioProject Validation
 * 제출된 과제명이 총괄이 아닌지 검사
 * 날짜 입력 양식 검사 (YYYY-MM-DD)
