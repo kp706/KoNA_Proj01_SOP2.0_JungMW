@@ -29,7 +29,7 @@ KONA_Validation
 ## Experiment Validation
 * Sample name 항목이 BioSample에 기입된 sample name 항목과 동일한지 검사
 * Release date이 현재로부터 1년 이내인지 검사
-* 'Fragment/Paired read' 필드가 Pairde-end인 경우, "insert size" 혹은 "Nominal size"필드 중 적어도 하나 이상의 필드에 값이 기입되었는지 검사<br>
+* 'Fragment/Paired read' 필드가 Paired-end인 경우, "insert size" 혹은 "Nominal size"필드 중 적어도 하나 이상의 필드에 값이 기입되었는지 검사<br>
 * Sample name이 sample type의 항목에 속하는지 검사
 * E~U칼럼이 모두 같은 데이터가 있는지 검사
 * FilePath + FileName이 중복되는 데이터가 있는지 검사
