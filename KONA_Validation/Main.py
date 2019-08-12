@@ -60,8 +60,8 @@ class KonaValidation(QWidget):
 
 
 
-    bioSample_SampleName = []
-    experiment_SampleName = []
+    #bioSample_SampleName = []
+    #experiment_SampleName = []
 
     def run(self,excelPathInputValue,errbox):
         try:
@@ -93,6 +93,8 @@ class KonaValidation(QWidget):
             Validation.bioProject_Validation(bioProject,bioProjectSheetName,errbox) #BioProject는 1개뿐이므로 그냥 validation 실행
 
             #나머지 시트들은 존재하는 개수만큼 실행한다.
+            #bioSample_SampleName = []
+
             i = 0
             while i < rotation:
                 bioSample = targetExcel[bioSampleSheetName[i]]
@@ -100,8 +102,8 @@ class KonaValidation(QWidget):
                 experiment = targetExcel[experimentSheetName[i]]
 
                 Validation.bioSample_Validation(bioSample,sampleType,bioSampleSheetName[i],errbox)
-                Validation.sampleType_Validation(sampleType,sampleTypeSheetName[i],errbox)
-                Validation.Experiment_Validation(experiment,experimentSheetName[i],errbox)
+                bioSample_SampleName = Validation.sampleType_Validation(sampleType,sampleTypeSheetName[i],errbox)
+                Validation.Experiment_Validation(experiment,experimentSheetName[i],errbox, bioSample_SampleName)
                 i += 1
 
         except IOError as err:

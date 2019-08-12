@@ -1,0 +1,7 @@
+Main.py가 있는 디렉토리로 이동
+
+# pip로 pyinstaller 설치
+
+pyinstaller --onefile Main.py
+
+-> dist 폴더에 Main.exe 생성

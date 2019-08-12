@@ -11,8 +11,8 @@ from PyQt5.QtGui import QIcon, QColor
 from PyQt5.QtCore import QCoreApplication
 import Common
 
-bioSample_SampleName = []
-experiment_SampleName = []
+#bioSample_SampleName = []
+#experiment_SampleName = []
 redColor = QColor(255, 0, 0)
 blueColor = QColor(0, 0, 255)
 blackColor = QColor(0, 0, 0)
@@ -34,7 +34,7 @@ def bioProject_Validation(targetSheet, sheetName, errbox):
             '[ERROR] [' + str(sheetName) + '] "Submission date 필드의 위치가 템플릿 양식과 일치하지 않습니다." (17 row)\n')
         flag += 1
     else:
-        if not str(object=targetSheet[str('E') + str(17)].value).count('-') == 2:
+        if (not str(object=targetSheet[str('E') + str(17)].value).count('-') == 2) and (not Common.matchedNA(str(targetSheet[str('E') + str(17)].value))):
             errbox.insertPlainText(
                 '[ERROR] [' + str(sheetName) + '] "Submission date" 입력값 형식이 적절하지 않습니다.(17 row, 입력형식:YYYY-MM-DD)\n')
             flag += 1
@@ -55,16 +55,16 @@ def bioProject_Validation(targetSheet, sheetName, errbox):
                 flag = 1
             elif not Common.checkingReleaseDate(str(targetSheet[str('E') + str(19)].value)):
                 errbox.insertPlainText(
-                    '[ERROR] [' + str(sheetName) + '] "Release Date"가 현재로부터 1년 이후로 설정되어있습니다.(19 row)\n')
-                flag = 1
+                    '[WARNING] [' + str(sheetName) + '] "Release Date"가 현재로부터 1년 이후로 설정되어있습니다.(19 row)\n')
+                #flag = 1
         elif not str(targetSheet[str('E') + str(18)].value) == "Release immediately following curation (recommended)":
             errbox.insertPlainText(
-                '[ERROR] [' + str(sheetName) + '] "Release date section" 선택 입력값이 적절하지 않습니다.(18 row, 설명에있는 예시중 선택해야함)\n')
+                '[ERROR] [' + str(sheetName) + '] "Release date selection" 선택 입력값이 적절하지 않습니다.(18 row, 설명에있는 예시중 선택해야함)\n')
             flag += 1
 
     # M/O Field Check - M인 필드는 꼭 입력이 되어야한다.
     i = 3
-    while i < 60:
+    while i < 100:
         '''
         필수 입력값(M)이 입력되었는지 검사한다.
         '''
@@ -94,7 +94,7 @@ def bioProject_Validation(targetSheet, sheetName, errbox):
     else:
         if str(object=targetSheet[str('E') + str(26)].value) == '총괄':
             errbox.insertPlainText(
-                '[WARNING] [' + str(sheetName) + '] "Project type"이 총괄로 등록된 경우 따로 정리해서 결정해야합니다.(26 row)\n')
+                '[WARNING] [' + str(sheetName) + '] "Project type"이 총괄로 등록되어 있습니다.(26 row)\n')
             flag += 1
 
     if(flag == 0):
@@ -115,7 +115,7 @@ def bioSample_Validation(targetSheet, compareSheet, sheetName, errbox):
             '[ERROR] [' + str(sheetName) + '] "Submission date 필드의 위치가 템플릿 양식과 일치하지 않습니다." (19 row)\n')
         flag += 1
     else:
-        if not (str(object=targetSheet[str('E') + str(19)].value).count('-') == 2):
+        if (not str(object=targetSheet[str('E') + str(19)].value).count('-') == 2) and (not Common.matchedNA(str(targetSheet[str('E') + str(19)].value))):
             errbox.insertPlainText(
                 '[ERROR] [' + str(sheetName) + '] Submission date 입력값 형식이 적절하지 않습니다.(19 row, 입력형식:YYYY-MM-DD)\n')
             flag += 1
@@ -129,10 +129,24 @@ def bioSample_Validation(targetSheet, compareSheet, sheetName, errbox):
         elif not Common.checkingReleaseDate(str(targetSheet[str('E') + str(21)].value)):
             errbox.insertPlainText(
                 '[WARNING] [' + str(sheetName) + '] "Release Date"가 현재로부터 1년 이후로 설정되어있습니다.(21 row)\n')
+                # flag += 1
     elif not str(targetSheet[str('E') + str(20)].value) == "Release immediately following curation (recommended)":
         errbox.insertPlainText(
             '[ERROR] [' + str(sheetName) + '] "Release date section" 선택 입력값이 적절하지 않습니다.(20 row, 설명에있는 예시중 선택해야함)\n')
         flag += 1
+
+    # M/O Field Check - M인 필드는 꼭 입력이 되어야한다.
+    i = 3
+    while i < 100:
+        '''
+        필수 입력값(M)이 입력되었는지 검사한다.
+        '''
+        if str(targetSheet['B' + str(i)].value) == 'M':
+            if Common.matchedNA(str(targetSheet['E' + str(i)].value)):
+                errbox.insertPlainText(
+                    '[ERROR] [' + str(sheetName) + '] "Mandatory값(필수 입력값)이 입력되지 않았습니다." (' + str(object=i) + ' row )\n')
+                flag += 1
+        i += 1
 
     # Project accession check
     if Common.notMatchedFieldName(targetSheet, 'A17', 'Project accession '):
@@ -153,11 +167,13 @@ def bioSample_Validation(targetSheet, compareSheet, sheetName, errbox):
         '''
         bio sample sheet의 sample type에 입력된 문자열의 키워드가 다음시트인 sample type 시트의 A1에 입력된 값과 일치하는값이 있는지 확인한다.
         '''
+        # 대소문자 구분안하려고 모두 대문자로 바꾸고, in으로 비교
         temp1 = str(targetSheet['E27'].value).upper().split(' ')
         temp2 = str(compareSheet['A1'].value).upper().split(' ')
 
-        # 대소문자 구분안하려고 모두 대문자로 바꾸고, in으로 비교
-        if not temp1 in temp2:
+        if not len( set(temp1) - set(temp2) ) ==0:
+            errbox.insertPlainText(str(temp1) + '\n')
+            errbox.insertPlainText(str(temp2) + '\n')
             errbox.insertPlainText(
                 '[ERROR] [' + str(sheetName) + '] "bioSample의 sampletype"이 "SampleType" 시트에 있는 "sampletype" 값과 다릅니다." (27 row)\n')
             flag += 1
@@ -174,6 +190,8 @@ def bioSample_Validation(targetSheet, compareSheet, sheetName, errbox):
 
 
 def sampleType_Validation(targetSheet, sheetName, errbox):
+    # clear bioSample_SampleName
+    bioSample_SampleName = []
 
     flag = 0
     i = 5
@@ -194,14 +212,17 @@ def sampleType_Validation(targetSheet, sheetName, errbox):
     nameSet.sort()
     bioSample_SampleName.sort()
 
+    #errbox.insertPlainText( str(nameSet) + '\n')
+
     if len(nameSet) != len(bioSample_SampleName):
         errbox.insertPlainText(
-            '[ERROR] [' + sheetName + '] "sample type에 이름이 중복되는 데이터가 있습니다."\n')
+            '[ERROR] [' + sheetName + '] "sample type의 sample name에 이름이 중복되는 데이터가 있습니다.": 중복 제거 후 ' + str(len(nameSet)) + '개 sample\n')
         flag += 1
 
     i = 5
     column = ['B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K',
-              'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W']
+                'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U',
+                'V', 'W', 'X', 'Y', 'Z', 'AA', 'AB', 'AC', 'AD', 'AE', 'AF', 'AG']
     duplicationCheckArr = []
     while True:
         if targetSheet['A' + str(i)].value == None:
@@ -226,9 +247,12 @@ def sampleType_Validation(targetSheet, sheetName, errbox):
         errbox.setTextColor(redColor)
         errbox.insertPlainText("<<< " + str(sheetName) +
                                " : " + str(flag) + " ERROR >>>\n")
+    return bioSample_SampleName
 
 
-def Experiment_Validation(targetSheet, sheetName, errbox):
+def Experiment_Validation(targetSheet, sheetName, errbox, bioSample_SampleName):
+    # clear experiment_SampleName
+    experiment_SampleName = []
     flag = 0
     errbox.setTextColor(blackColor)
     i = 5
@@ -248,27 +272,37 @@ def Experiment_Validation(targetSheet, sheetName, errbox):
 
     if len(experiment_SampleName) != len(nameSet):
         errbox.insertPlainText(
-            '[ERROR] [' + str(sheetName) + '] "sample name"에 이름이 중복되는 데이터가 있습니다.\n')
-        flag += 1
+            '[WARNING] [' + str(sheetName) + '] "sample name"에 이름이 중복되는 데이터가 있습니다.\n')
+        #flag += 1
 
     if len(set(nameSet) - set(compareNameSet)) != 0:
         errbox.insertPlainText(
-            '[ERROR] [' + str(sheetName) + '] "sample name"에 있는 항목중에 "BioSample"에 없는 값이 있습니다."\n')
+            '[ERROR] [' + str(sheetName) + '] "sample name"에 있는 항목중에 "BioSample"에 없는 값이 있습니다." sample name:' + str((set(nameSet) - set(compareNameSet)))+ '\n')
         flag += 1
 
+
+
     # Release date Check
-    if str(targetSheet[str('C' + str(5))].value) == "Release on specified date":
-        i = 5
-        while True:
-            temp = targetSheet[str('D') + str(i)].value
-            if temp == None:
-                break
-            else:
-                if not (Common.checkingReleaseDate(temp)):
+    i = 5
+    while True:
+        temp = targetSheet[str('D') + str(i)].value
+        if temp == None:
+            break
+        else:
+            if str(targetSheet[str('C' + str(i))].value) == "Release on specified date":
+                if not ( str(temp).count('-') == 2 ):
                     errbox.insertPlainText(
-                        '[ERROR] [' + str(sheetName) + '] "Release Date"가 현재로부터 1년 이후로 설정되어있습니다.(' + str(i) + ' row)\n')
-                    flag += 1
-                i += 1
+                        '[ERROR] [' + str(sheetName) + '] "Release on specified date" 를 선택한 경우 반드시 공개날짜를 입력해야합니다.(' + str(i) + ' row,입력형식:YYYY-MM-DD)\n')
+                    flag = 1
+                elif not (Common.checkingReleaseDate(str(temp))):
+                    errbox.insertPlainText(
+                        '[WARNING] [' + str(sheetName) + '] "Release Date"가 현재로부터 1년 이후로 설정되어있습니다.(' + str(i) + ' row)\n')
+                    #flag += 1
+            elif not str(targetSheet[str('C') + str(i)].value) == "Release immediately following curation (recommended)":
+                errbox.insertPlainText(
+                    '[ERROR] [' + str(sheetName) + '] "Release date section" 선택 입력값이 적절하지 않습니다.(' + str(i) + ' row, 설명에있는 예시중 선택해야함)\n')
+                flag += 1
+            i += 1
 
     # Size value check
     i = 5
@@ -277,7 +311,7 @@ def Experiment_Validation(targetSheet, sheetName, errbox):
         if temp == None:
             break
         if str(temp) == "Paired-end":
-            if Common.matchedNA(targetSheet[str('R') + str(i)].value):
+            if ( Common.matchedNA(targetSheet[str('R') + str(i)].value) ) and ( Common.matchedNA(targetSheet[str('S') + str(i)].value) ):
                 errbox.insertPlainText(
                     '[ERROR] [' + str(sheetName) + '] "Paired-end"인 경우 "Insert size" 또는 "Normal size"중 하나는 값을 입력해야합니다.(' + str(i) + ' row)\n')
                 flag += 1
@@ -311,9 +345,12 @@ def Experiment_Validation(targetSheet, sheetName, errbox):
         if targetSheet['A' + str(i)].value == None:
             break
         temp = ""
-        temp += (str(targetSheet[str('AA' + str(i))].value).strip() + str(targetSheet[str(
-            'V') + str(i)].value).strip() + str(targetSheet[str('X') + str(i)].value).strip())
+        temp += ( str(targetSheet[str('AA' + str(i))].value).strip() + str(targetSheet[str('V') + str(i)].value).strip() )
         forFilePath.append(temp)
+        if str( targetSheet[str('Q') + str(i)].value ) == "Paired-end":
+            temp = ""
+            temp += ( str(targetSheet[str('AA' + str(i))].value).strip() + str(targetSheet[str('X') + str(i)].value).strip() )
+            forFilePath.append(temp)
         i += 1
 
     forFilePathSet = list(set(forFilePath))
